@@ -60,7 +60,7 @@ fun testCompose(count: Int) {
                 .padding(15.dp)
                 .background(Color.Blue)){
                 Button(onClick = {}){
-                    Text("Roll")
+                    Text("Troll")
                 }
             }
         }
