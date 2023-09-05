@@ -18,6 +18,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
@@ -36,11 +38,11 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    val dice = mutableListOf<Int>()
+                    val dicies = remember { mutableStateListOf<Int>()}
                     for(i in 0 .. 5){
-                        dice.add(random())
+                        dicies.add(random())
                     }
-                    testCompose(dice.size)
+                    testCompose(dicies)
                     }
                 }
             }
@@ -49,7 +51,7 @@ class MainActivity : ComponentActivity() {
 
 
 @Composable
-fun testCompose(count: Int) {
+fun testCompose(dicies: MutableList<Int>) {
 
     Row(modifier = Modifier.fillMaxSize()){
         Column(modifier = Modifier
@@ -59,21 +61,33 @@ fun testCompose(count: Int) {
                 .fillMaxSize()
                 .padding(15.dp)
                 .background(Color.Blue)){
-                Button(onClick = {}){
+                Button(onClick = {
+                    for(i in 0 .. 5){
+                        dicies[i] = (random())
+                    }
+                }){
                     Text("Roll")
                 }
             }
         }
         Column(modifier = Modifier
             .fillMaxSize()){
-            for(i in 0 .. count - 1){
+            for(i in 0 .. dicies.size - 1){
+                val randomDice = when (dicies[i]) {
+                    1 -> R.drawable.dice_1
+                    2 -> R.drawable.dice_2
+                    3 -> R.drawable.dice_3
+                    4 -> R.drawable.dice_4
+                    5 -> R.drawable.dice_5
+                    else -> R.drawable.dice_6
+                }
                 Box(modifier = Modifier
                     .padding(15.dp)
                     .height(120.dp)
                     .fillMaxWidth()
                     .background(colorResource(R.color.dice_background))){
                     Image(
-                        painter = painterResource(id = R.drawable.dice_1), contentDescription = "1"
+                        painter = painterResource(id = randomDice), contentDescription = "1"
                     )
                 }
             }
