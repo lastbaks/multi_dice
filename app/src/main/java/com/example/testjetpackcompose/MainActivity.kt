@@ -50,7 +50,6 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-
 @Composable
 fun bodyView(dicies: MutableList<Int>) {
 
@@ -75,14 +74,6 @@ fun bodyView(dicies: MutableList<Int>) {
         Column(modifier = Modifier
             .fillMaxSize()){
             for(i in 0 .. dicies.size - 1){
-                val randomDice = when (dicies[i]) {
-                    1 -> R.drawable.dice_1
-                    2 -> R.drawable.dice_2
-                    3 -> R.drawable.dice_3
-                    4 -> R.drawable.dice_4
-                    5 -> R.drawable.dice_5
-                    else -> R.drawable.dice_6
-                }
                 Box(modifier = Modifier
                     .padding(15.dp)
                     .height(120.dp)
@@ -90,7 +81,7 @@ fun bodyView(dicies: MutableList<Int>) {
                     .background(colorResource(R.color.dice_background)),
                     contentAlignment = Alignment.Center){
                     Image(
-                        painter = painterResource(id = randomDice(1)), contentDescription = "1"
+                        painter = painterResource(id = randomDice(random())), contentDescription = "1"
                     )
                 }
             }
